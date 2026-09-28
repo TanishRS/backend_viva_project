@@ -1,0 +1,445 @@
+openapi: 3.0.3
+info:
+  title: ReliefConnect API
+  description: >
+    Backend API for ReliefConnect — a Crowdsourced Disaster Relief Platform.
+    Volunteers register skills/availability, NGOs post needs, donors contribute
+    funds/items, admins verify posts and coordinate logistics, and real-time
+    updates flow over Socket.io with Firebase push for emergency alerts.
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000/api
+    description: Local development
+  - url: https://your-deployed-app.onrender.com/api
+    description: Production (Render)
+
+tags:
+  - name: Auth
+  - name: Volunteers
+  - name: Needs
+  - name: Donations
+  - name: Relief Camps
+  - name: Alerts
+  - name: Map
+  - name: Admin
+  - name: Notifications
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ApiResponse:
+      type: object
+      properties:
+        success: { type: boolean }
+        message: { type: string }
+        data: {}
+    User:
+      type: object
+      properties:
+        _id: { type: string }
+        name: { type: string }
+        email: { type: string }
+        role: { type: string, enum: [volunteer, ngo, donor, admin] }
+        phone: { type: string }
+    RegisterRequest:
+      type: object
+      required: [name, email, password]
+      properties:
+        name: { type: string, example: "Riya Sharma" }
+        email: { type: string, example: "riya@example.com" }
+        password: { type: string, example: "password123" }
+        role: { type: string, enum: [volunteer, ngo, donor, admin], example: "volunteer" }
+        phone: { type: string, example: "+919876543210" }
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email: { type: string }
+        password: { type: string }
+    Volunteer:
+      type: object
+      properties:
+        skills:
+          type: array
+          items: { type: string }
+          example: ["Medical aid"]
+        availability:
+          type: string
+          enum: [immediate, today, tomorrow, this_week, unavailable]
+        availabilityNote: { type: string, example: "Medical aid, available tomorrow" }
+        location:
+          type: object
+          properties:
+            coordinates:
+              type: array
+              items: { type: number }
+              example: [72.8777, 19.0760]
+            address: { type: string }
+    Need:
+      type: object
+      required: [title, category]
+      properties:
+        title: { type: string, example: "500 blankets, 200 food packets needed" }
+        description: { type: string }
+        category: { type: string, enum: [food, medicine, shelter, clothing, water, other] }
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              name: { type: string }
+              quantity: { type: number }
+              unit: { type: string }
+        urgency: { type: string, enum: [low, medium, high, critical] }
+        location:
+          type: object
+          properties:
+            coordinates:
+              type: array
+              items: { type: number }
+              example: [72.88, 19.08]
+            zoneName: { type: string, example: "Flood Zone A" }
+    Donation:
+      type: object
+      required: [type]
+      properties:
+        type: { type: string, enum: [funds, items] }
+        amount: { type: number, example: 10000 }
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              name: { type: string }
+              quantity: { type: number }
+        relatedNeed: { type: string }
+        reliefCamp: { type: string }
+    ReliefCamp:
+      type: object
+      required: [name, location]
+      properties:
+        name: { type: string, example: "Relief Camp 1" }
+        location:
+          type: object
+          properties:
+            coordinates:
+              type: array
+              items: { type: number }
+              example: [72.87, 19.07]
+            address: { type: string }
+        capacity: { type: number }
+        currentOccupancy: { type: number }
+        status: { type: string, enum: [active, full, closed] }
+    Alert:
+      type: object
+      required: [title, message]
+      properties:
+        title: { type: string, example: "Cyclone Warning" }
+        message: { type: string, example: "Cyclone approaching, prepare shelters" }
+        severity: { type: string, enum: [info, warning, emergency] }
+
+security:
+  - bearerAuth: []
+
+paths:
+  /auth/register:
+    post:
+      tags: [Auth]
+      summary: Register a new user
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/RegisterRequest' }
+      responses:
+        '201': { description: User registered }
+        '400': { description: Validation error }
+        '409': { description: Email already exists }
+
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Login and receive a JWT
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LoginRequest' }
+      responses:
+        '200': { description: Login successful }
+        '401': { description: Invalid credentials }
+
+  /volunteers:
+    get:
+      tags: [Volunteers]
+      summary: List volunteers
+      parameters:
+        - in: query
+          name: skill
+          schema: { type: string }
+        - in: query
+          name: availability
+          schema: { type: string }
+      responses:
+        '200': { description: List of volunteers }
+    post:
+      tags: [Volunteers]
+      summary: Register skills and availability for the logged-in volunteer
+      requestBody:
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Volunteer' }
+      responses:
+        '201': { description: Volunteer profile created }
+
+  /volunteers/{id}:
+    get:
+      tags: [Volunteers]
+      summary: Get a volunteer by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Volunteer detail }
+        '404': { description: Not found }
+    put:
+      tags: [Volunteers]
+      summary: Update a volunteer profile
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      requestBody:
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Volunteer' }
+      responses:
+        '200': { description: Volunteer updated }
+
+  /needs:
+    get:
+      tags: [Needs]
+      summary: List relief needs
+      security: []
+      parameters:
+        - in: query
+          name: category
+          schema: { type: string }
+        - in: query
+          name: status
+          schema: { type: string }
+        - in: query
+          name: urgency
+          schema: { type: string }
+      responses:
+        '200': { description: List of needs }
+    post:
+      tags: [Needs]
+      summary: Post a relief need (NGO only)
+      requestBody:
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Need' }
+      responses:
+        '201': { description: Need posted }
+        '403': { description: Only NGOs can post needs }
+
+  /needs/{id}:
+    get:
+      tags: [Needs]
+      summary: Get a need by ID
+      security: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Need detail }
+    put:
+      tags: [Needs]
+      summary: Update a need
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      requestBody:
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Need' }
+      responses:
+        '200': { description: Need updated }
+    delete:
+      tags: [Needs]
+      summary: Delete a need
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Need deleted }
+
+  /donations:
+    post:
+      tags: [Donations]
+      summary: Contribute a donation (donor only)
+      requestBody:
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Donation' }
+      responses:
+        '201': { description: Donation recorded }
+    get:
+      tags: [Donations]
+      summary: List donations (admin/NGO)
+      responses:
+        '200': { description: List of donations }
+
+  /donations/user/{id}:
+    get:
+      tags: [Donations]
+      summary: Get donations by user ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: User's donations }
+
+  /relief-camps:
+    get:
+      tags: [Relief Camps]
+      summary: List relief camps
+      security: []
+      responses:
+        '200': { description: List of relief camps }
+    post:
+      tags: [Relief Camps]
+      summary: Create a relief camp (admin only)
+      requestBody:
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ReliefCamp' }
+      responses:
+        '201': { description: Relief camp created }
+
+  /relief-camps/{id}:
+    get:
+      tags: [Relief Camps]
+      summary: Get a relief camp by ID
+      security: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Relief camp detail }
+    put:
+      tags: [Relief Camps]
+      summary: Update a relief camp (admin only)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      requestBody:
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ReliefCamp' }
+      responses:
+        '200': { description: Relief camp updated }
+
+  /alerts:
+    get:
+      tags: [Alerts]
+      summary: List alerts
+      security: []
+      responses:
+        '200': { description: List of alerts }
+    post:
+      tags: [Alerts]
+      summary: Create an alert (admin only) — triggers Socket.io broadcast + Firebase push if emergency
+      requestBody:
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Alert' }
+      responses:
+        '201': { description: Alert created }
+
+  /alerts/emergency:
+    get:
+      tags: [Alerts]
+      summary: List emergency alerts only
+      security: []
+      responses:
+        '200': { description: List of emergency alerts }
+
+  /map/affected-areas:
+    get:
+      tags: [Map]
+      summary: GeoJSON of affected areas (active needs)
+      security: []
+      responses:
+        '200': { description: GeoJSON FeatureCollection }
+
+  /map/relief-camps:
+    get:
+      tags: [Map]
+      summary: GeoJSON of active relief camps
+      security: []
+      responses:
+        '200': { description: GeoJSON FeatureCollection }
+
+  /admin/needs:
+    get:
+      tags: [Admin]
+      summary: List all needs for admin review (admin only)
+      responses:
+        '200': { description: All needs }
+
+  /admin/verify/{id}:
+    put:
+      tags: [Admin]
+      summary: Verify a need / approve a supply request (admin only)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Need verified }
+
+  /notifications/send:
+    post:
+      tags: [Notifications]
+      summary: Send a push notification via Firebase (admin only)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, body]
+              properties:
+                title: { type: string }
+                body: { type: string }
+                userIds:
+                  type: array
+                  items: { type: string }
+                tokens:
+                  type: array
+                  items: { type: string }
+      responses:
+        '200': { description: Notification dispatched }

@@ -1,0 +1,317 @@
+{
+  "info": {
+    "name": "ReliefConnect API",
+    "description": "Crowdsourced Disaster Relief Platform backend — Case Study 76",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "token", "value": "" },
+    { "key": "needId", "value": "" },
+    { "key": "campId", "value": "" },
+    { "key": "userId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register - NGO",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Mumbai Relief NGO\",\n  \"email\": \"ngo@reliefconnect.org\",\n  \"password\": \"password123\",\n  \"role\": \"ngo\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Register - Volunteer",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Riya Sharma\",\n  \"email\": \"volunteer@reliefconnect.org\",\n  \"password\": \"password123\",\n  \"role\": \"volunteer\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Register - Donor",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Aman Gupta\",\n  \"email\": \"donor@reliefconnect.org\",\n  \"password\": \"password123\",\n  \"role\": \"donor\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Register - Admin",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Admin User\",\n  \"email\": \"admin@reliefconnect.org\",\n  \"password\": \"password123\",\n  \"role\": \"admin\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json.data && json.data.token) { pm.collectionVariables.set('token', json.data.token); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@reliefconnect.org\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Volunteers",
+      "item": [
+        {
+          "name": "List Volunteers",
+          "request": { "method": "GET", "url": "{{baseUrl}}/volunteers" }
+        },
+        {
+          "name": "Get Volunteer by ID",
+          "request": { "method": "GET", "url": "{{baseUrl}}/volunteers/{{userId}}" }
+        },
+        {
+          "name": "Register Volunteer Profile",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/volunteers",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"skills\": [\"Medical aid\"],\n  \"availability\": \"tomorrow\",\n  \"availabilityNote\": \"Medical aid, available tomorrow\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Volunteer",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/volunteers/{{userId}}",
+            "body": { "mode": "raw", "raw": "{\n  \"availability\": \"immediate\"\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Needs",
+      "item": [
+        {
+          "name": "List Needs",
+          "request": { "method": "GET", "url": "{{baseUrl}}/needs" }
+        },
+        {
+          "name": "Get Need by ID",
+          "request": { "method": "GET", "url": "{{baseUrl}}/needs/{{needId}}" }
+        },
+        {
+          "name": "Create Need (NGO)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json.data && json.data._id) { pm.collectionVariables.set('needId', json.data._id); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/needs",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"500 blankets, 200 food packets needed\",\n  \"category\": \"food\",\n  \"urgency\": \"high\",\n  \"items\": [\n    {\"name\": \"Blankets\", \"quantity\": 500, \"unit\": \"pcs\"},\n    {\"name\": \"Food packets\", \"quantity\": 200, \"unit\": \"pcs\"}\n  ],\n  \"location\": {\n    \"coordinates\": [72.88, 19.08],\n    \"zoneName\": \"Flood Zone A\"\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Need",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/needs/{{needId}}",
+            "body": { "mode": "raw", "raw": "{\n  \"urgency\": \"critical\"\n}" }
+          }
+        },
+        {
+          "name": "Delete Need",
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/needs/{{needId}}" }
+        }
+      ]
+    },
+    {
+      "name": "Donations",
+      "item": [
+        {
+          "name": "Create Donation (Donor)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/donations",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"funds\",\n  \"amount\": 10000,\n  \"relatedNeed\": \"{{needId}}\",\n  \"note\": \"Contribution for relief supplies\"\n}"
+            }
+          }
+        },
+        {
+          "name": "List Donations",
+          "request": { "method": "GET", "url": "{{baseUrl}}/donations" }
+        },
+        {
+          "name": "Get Donations by User",
+          "request": { "method": "GET", "url": "{{baseUrl}}/donations/user/{{userId}}" }
+        }
+      ]
+    },
+    {
+      "name": "Relief Camps",
+      "item": [
+        {
+          "name": "List Relief Camps",
+          "request": { "method": "GET", "url": "{{baseUrl}}/relief-camps" }
+        },
+        {
+          "name": "Get Relief Camp by ID",
+          "request": { "method": "GET", "url": "{{baseUrl}}/relief-camps/{{campId}}" }
+        },
+        {
+          "name": "Create Relief Camp (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json.data && json.data._id) { pm.collectionVariables.set('campId', json.data._id); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/relief-camps",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Relief Camp 1\",\n  \"location\": {\n    \"coordinates\": [72.87, 19.07],\n    \"address\": \"Zone A, Mumbai\"\n  },\n  \"capacity\": 200\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Relief Camp (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/relief-camps/{{campId}}",
+            "body": { "mode": "raw", "raw": "{\n  \"currentOccupancy\": 120\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Alerts",
+      "item": [
+        {
+          "name": "List Alerts",
+          "request": { "method": "GET", "url": "{{baseUrl}}/alerts" }
+        },
+        {
+          "name": "List Emergency Alerts",
+          "request": { "method": "GET", "url": "{{baseUrl}}/alerts/emergency" }
+        },
+        {
+          "name": "Create Emergency Alert (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/alerts",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Cyclone Warning\",\n  \"message\": \"Cyclone approaching, prepare shelters\",\n  \"severity\": \"emergency\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Map",
+      "item": [
+        {
+          "name": "Affected Areas (GeoJSON)",
+          "request": { "method": "GET", "url": "{{baseUrl}}/map/affected-areas" }
+        },
+        {
+          "name": "Relief Camps Map (GeoJSON)",
+          "request": { "method": "GET", "url": "{{baseUrl}}/map/relief-camps" }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "List All Needs (Admin)",
+          "request": { "method": "GET", "url": "{{baseUrl}}/admin/needs" }
+        },
+        {
+          "name": "Verify Need / Approve Supply Request",
+          "request": { "method": "PUT", "url": "{{baseUrl}}/admin/verify/{{needId}}" }
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "Send Push Notification (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/notifications/send",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Cyclone Warning\",\n  \"body\": \"Cyclone approaching, prepare shelters\"\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
