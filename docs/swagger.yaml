@@ -8,8 +8,8 @@ info:
     updates flow over Socket.io with Firebase push for emergency alerts.
   version: 1.0.0
 servers:
-  - url: http://localhost:5000/api
-    description: Local development
+  - url: /api
+    description: This server (same host and port as this page)
   - url: https://your-deployed-app.onrender.com/api
     description: Production (Render)
 
