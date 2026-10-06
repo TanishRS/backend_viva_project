@@ -52,6 +52,7 @@ cp .env.example .env
 At minimum, set:
 - `MONGO_URI` — your MongoDB connection string
 - `JWT_SECRET` — any long random string
+- `ADMIN_SIGNUP_KEY` — secret needed to register an admin account
 
 Firebase is **mocked by default** (`FIREBASE_MOCK=true`) so the API runs and can
 be graded/tested with zero external credentials — pushes are logged to the
@@ -91,6 +92,14 @@ JWT-based. Register or log in to get a token, then send it as:
 ```
 Authorization: Bearer <token>
 ```
+
+Login also accepts a Firebase Auth ID token instead of email/password
+(`{ "firebaseIdToken": "..." }`) — the response is still our JWT. Send an optional
+`fcmToken` on register/login to receive push alerts on that device.
+
+Admin accounts can't be self-registered by just anyone: `POST /api/auth/register`
+with `"role": "admin"` also needs `"adminKey"` equal to `ADMIN_SIGNUP_KEY` from `.env`
+(or just use `npm run seed`, which creates an admin).
 
 Roles: `volunteer`, `ngo`, `donor`, `admin`. Role-based authorization middleware
 (`middleware/auth.js`) restricts write operations — e.g. only `ngo`/`admin` can
@@ -166,10 +175,11 @@ Postman or Swagger.
 
 ## Testing
 
-A structural smoke test (`scripts/smoke-test.js`) verifies routing, auth
-middleware, role gating, input validation, and error-handling shape:
+Two test scripts run with no database needed (models are stubbed):
+`scripts/smoke-test.js` (routing, auth middleware, validation, error shape) and
+`scripts/logic-test.js` (admin-signup key, Firebase login, NGO can't self-verify).
 ```bash
-node scripts/smoke-test.js
+npm test
 ```
 
 ## Deployment (Render / Heroku)

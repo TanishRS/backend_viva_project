@@ -8,9 +8,17 @@ const registerValidator = [
   body('role').optional().isIn(Object.values(ROLES)).withMessage('Invalid role'),
 ];
 
+// Login = email + password, OR a firebaseIdToken (then email/password aren't needed)
 const loginValidator = [
-  body('email').isEmail().withMessage('A valid email is required').normalizeEmail(),
-  body('password').notEmpty().withMessage('Password is required'),
+  body('email')
+    .if(body('firebaseIdToken').not().exists())
+    .isEmail()
+    .withMessage('A valid email is required')
+    .normalizeEmail(),
+  body('password')
+    .if(body('firebaseIdToken').not().exists())
+    .notEmpty()
+    .withMessage('Password is required'),
 ];
 
 const volunteerValidator = [

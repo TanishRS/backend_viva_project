@@ -44,6 +44,12 @@ async function sendPushNotification(tokens, payload) {
  */
 async function verifyFirebaseIdToken(idToken) {
   if (useMock) {
+    // The mock accepts ANY token, so it must never be reachable in production.
+    if (process.env.NODE_ENV === 'production') {
+      const err = new Error('Firebase is not configured on this server (FIREBASE_MOCK is on)');
+      err.statusCode = 503;
+      throw err;
+    }
     console.log('[FirebaseMock] Verifying ID token (mocked) — accepting as valid');
     return { uid: `mock-uid-${idToken.slice(0, 8)}`, mocked: true };
   }

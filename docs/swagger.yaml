@@ -54,12 +54,17 @@ components:
         password: { type: string, example: "password123" }
         role: { type: string, enum: [volunteer, ngo, donor, admin], example: "volunteer" }
         phone: { type: string, example: "+919876543210" }
+        adminKey: { type: string, description: "Required only when role is admin (server's ADMIN_SIGNUP_KEY)" }
+        firebaseIdToken: { type: string, description: "Optional - links a Firebase Auth user to this account" }
+        fcmToken: { type: string, description: "Optional - device token so this user receives push alerts" }
     LoginRequest:
       type: object
-      required: [email, password]
+      description: Send email + password, OR a firebaseIdToken (Firebase Auth)
       properties:
         email: { type: string }
         password: { type: string }
+        firebaseIdToken: { type: string }
+        fcmToken: { type: string, description: "Optional - device token for push alerts" }
     Volunteer:
       type: object
       properties:

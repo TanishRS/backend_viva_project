@@ -54,6 +54,12 @@ const updateNeed = asyncHandler(async (req, res) => {
     throw new ApiError(403, 'Not authorized to update this need');
   }
 
+  // Only admins can verify/reject a need - otherwise an NGO could approve its own post.
+  const adminOnlyStatuses = [NEED_STATUS.VERIFIED, NEED_STATUS.REJECTED];
+  if (req.user.role !== ROLES.ADMIN && adminOnlyStatuses.includes(req.body.status)) {
+    throw new ApiError(403, `Only an admin can set a need to '${req.body.status}'`);
+  }
+
   const allowedFields = ['title', 'description', 'category', 'items', 'urgency', 'status', 'location'];
   allowedFields.forEach((field) => {
     if (req.body[field] !== undefined) need[field] = req.body[field];
