@@ -48,6 +48,11 @@ components:
     RegisterRequest:
       type: object
       required: [name, email, password]
+      example:
+        name: New Donor
+        email: newdonor@example.com
+        password: password123
+        role: donor
       properties:
         name: { type: string, example: "Riya Sharma" }
         email: { type: string, example: "riya@example.com" }
@@ -60,6 +65,9 @@ components:
     LoginRequest:
       type: object
       description: Send email + password, OR a firebaseIdToken (Firebase Auth)
+      example:
+        email: admin@reliefconnect.org
+        password: password123
       properties:
         email: { type: string }
         password: { type: string }
