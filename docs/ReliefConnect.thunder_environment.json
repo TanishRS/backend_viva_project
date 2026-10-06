@@ -1,0 +1,39 @@
+{
+  "_id": "a4984fd2-e936-484b-82bb-38779927c01a",
+  "name": "ReliefConnect",
+  "default": false,
+  "global": false,
+  "local": false,
+  "sortNum": 10000,
+  "created": "2026-10-06T17:26:18.000Z",
+  "data": [
+    {
+      "name": "baseUrl",
+      "value": "http://localhost:5000/api"
+    },
+    {
+      "name": "adminKey",
+      "value": "change-me-admin-key"
+    },
+    {
+      "name": "token",
+      "value": ""
+    },
+    {
+      "name": "userId",
+      "value": ""
+    },
+    {
+      "name": "volunteerId",
+      "value": ""
+    },
+    {
+      "name": "needId",
+      "value": ""
+    },
+    {
+      "name": "campId",
+      "value": ""
+    }
+  ]
+}

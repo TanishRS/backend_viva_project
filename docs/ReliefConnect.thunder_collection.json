@@ -1,0 +1,849 @@
+{
+  "clientName": "Thunder Client",
+  "collectionName": "ReliefConnect",
+  "collectionId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+  "dateExported": "2026-10-06T17:26:18.000Z",
+  "version": "1.2",
+  "folders": [
+    {
+      "_id": "7a6877fe-66ca-4cba-9a0d-1069c8050ac9",
+      "name": "Auth",
+      "containerId": "",
+      "created": "2026-10-06T17:26:18.000Z",
+      "sortNum": 10000
+    },
+    {
+      "_id": "c0edc127-1020-4920-8052-dd2f4aa01757",
+      "name": "Volunteers",
+      "containerId": "",
+      "created": "2026-10-06T17:26:18.000Z",
+      "sortNum": 20000
+    },
+    {
+      "_id": "4c24cd26-c91a-4488-b365-24a0dfeece66",
+      "name": "Needs",
+      "containerId": "",
+      "created": "2026-10-06T17:26:18.000Z",
+      "sortNum": 30000
+    },
+    {
+      "_id": "9137264b-9c32-492e-aacc-8117c7190faf",
+      "name": "Donations",
+      "containerId": "",
+      "created": "2026-10-06T17:26:18.000Z",
+      "sortNum": 40000
+    },
+    {
+      "_id": "8233eee1-7b98-4f1c-8a6a-07787843189d",
+      "name": "Relief Camps",
+      "containerId": "",
+      "created": "2026-10-06T17:26:18.000Z",
+      "sortNum": 50000
+    },
+    {
+      "_id": "d6b375fb-f842-4ee3-97fd-b0f7f094bc73",
+      "name": "Alerts",
+      "containerId": "",
+      "created": "2026-10-06T17:26:18.000Z",
+      "sortNum": 60000
+    },
+    {
+      "_id": "dbb2050e-4763-42a8-8f61-acd3c9fe0cc8",
+      "name": "Map",
+      "containerId": "",
+      "created": "2026-10-06T17:26:18.000Z",
+      "sortNum": 70000
+    },
+    {
+      "_id": "5501fdd4-0841-4a94-95b6-f3a902ccadae",
+      "name": "Admin",
+      "containerId": "",
+      "created": "2026-10-06T17:26:18.000Z",
+      "sortNum": 80000
+    },
+    {
+      "_id": "18d1c50b-5da6-495e-969c-1a9c847df683",
+      "name": "Notifications",
+      "containerId": "",
+      "created": "2026-10-06T17:26:18.000Z",
+      "sortNum": 90000
+    }
+  ],
+  "requests": [
+    {
+      "_id": "e6a0721b-b873-41b5-83f4-03b2d20df618",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "7a6877fe-66ca-4cba-9a0d-1069c8050ac9",
+      "name": "Login - Admin (seeded)",
+      "url": "{{baseUrl}}/auth/login",
+      "method": "POST",
+      "sortNum": 10000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.data.token",
+          "action": "setto",
+          "value": "{{token}}"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.data.user._id",
+          "action": "setto",
+          "value": "{{userId}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"admin@reliefconnect.org\",\n  \"password\": \"password123\"\n}",
+        "form": []
+      }
+    },
+    {
+      "_id": "0c801ade-90ca-477e-907f-249547f2e71b",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "7a6877fe-66ca-4cba-9a0d-1069c8050ac9",
+      "name": "Login - NGO (seeded)",
+      "url": "{{baseUrl}}/auth/login",
+      "method": "POST",
+      "sortNum": 20000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.data.token",
+          "action": "setto",
+          "value": "{{token}}"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.data.user._id",
+          "action": "setto",
+          "value": "{{userId}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"ngo@reliefconnect.org\",\n  \"password\": \"password123\"\n}",
+        "form": []
+      }
+    },
+    {
+      "_id": "06c47d12-9d87-46de-a5f2-8dcba0581c67",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "7a6877fe-66ca-4cba-9a0d-1069c8050ac9",
+      "name": "Login - Volunteer (seeded)",
+      "url": "{{baseUrl}}/auth/login",
+      "method": "POST",
+      "sortNum": 30000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.data.token",
+          "action": "setto",
+          "value": "{{token}}"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.data.user._id",
+          "action": "setto",
+          "value": "{{userId}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"volunteer@reliefconnect.org\",\n  \"password\": \"password123\"\n}",
+        "form": []
+      }
+    },
+    {
+      "_id": "c372b77c-b819-4387-a47f-38bb8d7da6fe",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "7a6877fe-66ca-4cba-9a0d-1069c8050ac9",
+      "name": "Login - Donor (seeded)",
+      "url": "{{baseUrl}}/auth/login",
+      "method": "POST",
+      "sortNum": 40000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.data.token",
+          "action": "setto",
+          "value": "{{token}}"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.data.user._id",
+          "action": "setto",
+          "value": "{{userId}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"donor@reliefconnect.org\",\n  \"password\": \"password123\"\n}",
+        "form": []
+      }
+    },
+    {
+      "_id": "fed2e732-9466-41db-a3e5-98f791ccd569",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "7a6877fe-66ca-4cba-9a0d-1069c8050ac9",
+      "name": "Register - New Volunteer",
+      "url": "{{baseUrl}}/auth/register",
+      "method": "POST",
+      "sortNum": 50000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.data.token",
+          "action": "setto",
+          "value": "{{token}}"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.data.user._id",
+          "action": "setto",
+          "value": "{{userId}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"New Volunteer\",\n  \"email\": \"newvolunteer@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"volunteer\"\n}",
+        "form": []
+      }
+    },
+    {
+      "_id": "a895d74b-f87f-4ab7-bdec-6a2bd880f4b6",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "7a6877fe-66ca-4cba-9a0d-1069c8050ac9",
+      "name": "Register - New NGO",
+      "url": "{{baseUrl}}/auth/register",
+      "method": "POST",
+      "sortNum": 60000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.data.token",
+          "action": "setto",
+          "value": "{{token}}"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.data.user._id",
+          "action": "setto",
+          "value": "{{userId}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"New NGO\",\n  \"email\": \"newngo@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"ngo\"\n}",
+        "form": []
+      }
+    },
+    {
+      "_id": "d5674a41-fd00-4367-a143-0880de1d5e59",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "7a6877fe-66ca-4cba-9a0d-1069c8050ac9",
+      "name": "Register - New Donor",
+      "url": "{{baseUrl}}/auth/register",
+      "method": "POST",
+      "sortNum": 70000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.data.token",
+          "action": "setto",
+          "value": "{{token}}"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.data.user._id",
+          "action": "setto",
+          "value": "{{userId}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"New Donor\",\n  \"email\": \"newdonor@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"donor\"\n}",
+        "form": []
+      }
+    },
+    {
+      "_id": "d2fed54c-5278-4895-bb40-06cbf516fe47",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "7a6877fe-66ca-4cba-9a0d-1069c8050ac9",
+      "name": "Register - New Admin (needs adminKey)",
+      "url": "{{baseUrl}}/auth/register",
+      "method": "POST",
+      "sortNum": 80000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.data.token",
+          "action": "setto",
+          "value": "{{token}}"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.data.user._id",
+          "action": "setto",
+          "value": "{{userId}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"New Admin\",\n  \"email\": \"newadmin@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"admin\",\n  \"adminKey\": \"{{adminKey}}\"\n}",
+        "form": []
+      }
+    },
+    {
+      "_id": "5a15ee17-a8c2-45d0-80e7-a912df893683",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "c0edc127-1020-4920-8052-dd2f4aa01757",
+      "name": "List Volunteers",
+      "url": "{{baseUrl}}/volunteers",
+      "method": "GET",
+      "sortNum": 90000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.data[0]._id",
+          "action": "setto",
+          "value": "{{volunteerId}}"
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "f8cde574-3503-4cd7-a1a4-932f2291febc",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "c0edc127-1020-4920-8052-dd2f4aa01757",
+      "name": "Get Volunteer by ID",
+      "url": "{{baseUrl}}/volunteers/{{volunteerId}}",
+      "method": "GET",
+      "sortNum": 100000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "f459f8d5-2dc2-435d-a874-307cf79e598b",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "c0edc127-1020-4920-8052-dd2f4aa01757",
+      "name": "Register Volunteer Profile",
+      "url": "{{baseUrl}}/volunteers",
+      "method": "POST",
+      "sortNum": 110000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.data._id",
+          "action": "setto",
+          "value": "{{volunteerId}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"skills\": [\n    \"Medical aid\"\n  ],\n  \"availability\": \"tomorrow\",\n  \"availabilityNote\": \"Medical aid, available tomorrow\"\n}",
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "98fea586-bd91-4bb3-8368-c880b567e092",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "c0edc127-1020-4920-8052-dd2f4aa01757",
+      "name": "Update Volunteer",
+      "url": "{{baseUrl}}/volunteers/{{volunteerId}}",
+      "method": "PUT",
+      "sortNum": 120000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"availability\": \"immediate\"\n}",
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "b9986288-656d-471b-be4b-b684fe4a1e74",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "4c24cd26-c91a-4488-b365-24a0dfeece66",
+      "name": "List Needs",
+      "url": "{{baseUrl}}/needs",
+      "method": "GET",
+      "sortNum": 130000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.data[0]._id",
+          "action": "setto",
+          "value": "{{needId}}"
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "8c5c9447-f993-4d44-8601-1610a4b459e3",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "4c24cd26-c91a-4488-b365-24a0dfeece66",
+      "name": "Get Need by ID",
+      "url": "{{baseUrl}}/needs/{{needId}}",
+      "method": "GET",
+      "sortNum": 140000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "e3e3be95-e09b-4273-a743-e8b265626d49",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "4c24cd26-c91a-4488-b365-24a0dfeece66",
+      "name": "Create Need (NGO)",
+      "url": "{{baseUrl}}/needs",
+      "method": "POST",
+      "sortNum": 150000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.data._id",
+          "action": "setto",
+          "value": "{{needId}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"500 blankets, 200 food packets needed\",\n  \"category\": \"food\",\n  \"urgency\": \"high\",\n  \"items\": [\n    {\n      \"name\": \"Blankets\",\n      \"quantity\": 500,\n      \"unit\": \"pcs\"\n    },\n    {\n      \"name\": \"Food packets\",\n      \"quantity\": 200,\n      \"unit\": \"pcs\"\n    }\n  ],\n  \"location\": {\n    \"coordinates\": [\n      72.88,\n      19.08\n    ],\n    \"zoneName\": \"Flood Zone A\"\n  }\n}",
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "e220fe6a-43d3-4dc3-a894-671a31dcf316",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "4c24cd26-c91a-4488-b365-24a0dfeece66",
+      "name": "Update Need",
+      "url": "{{baseUrl}}/needs/{{needId}}",
+      "method": "PUT",
+      "sortNum": 160000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"urgency\": \"critical\"\n}",
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "59ec6aaa-5e35-4121-b7eb-a346600231f6",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "4c24cd26-c91a-4488-b365-24a0dfeece66",
+      "name": "Delete Need",
+      "url": "{{baseUrl}}/needs/{{needId}}",
+      "method": "DELETE",
+      "sortNum": 170000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "db3889ed-2f19-42a7-879c-af29c6233c9e",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "9137264b-9c32-492e-aacc-8117c7190faf",
+      "name": "Create Donation (Donor)",
+      "url": "{{baseUrl}}/donations",
+      "method": "POST",
+      "sortNum": 180000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"type\": \"funds\",\n  \"amount\": 10000,\n  \"relatedNeed\": \"{{needId}}\",\n  \"note\": \"Contribution for relief supplies\"\n}",
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "c1d605db-09ca-4c88-8831-0687ceedd609",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "9137264b-9c32-492e-aacc-8117c7190faf",
+      "name": "List Donations (Admin/NGO)",
+      "url": "{{baseUrl}}/donations",
+      "method": "GET",
+      "sortNum": 190000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "29be0efe-e3dc-47a7-9739-6324a92254dc",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "9137264b-9c32-492e-aacc-8117c7190faf",
+      "name": "Get Donations by User",
+      "url": "{{baseUrl}}/donations/user/{{userId}}",
+      "method": "GET",
+      "sortNum": 200000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "fc6ddeb7-83ca-4fb2-8a2d-bfc0f558f667",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "8233eee1-7b98-4f1c-8a6a-07787843189d",
+      "name": "List Relief Camps",
+      "url": "{{baseUrl}}/relief-camps",
+      "method": "GET",
+      "sortNum": 210000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.data[0]._id",
+          "action": "setto",
+          "value": "{{campId}}"
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "e53cb4cf-deb8-41a8-989c-921c964b4e9d",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "8233eee1-7b98-4f1c-8a6a-07787843189d",
+      "name": "Get Relief Camp by ID",
+      "url": "{{baseUrl}}/relief-camps/{{campId}}",
+      "method": "GET",
+      "sortNum": 220000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "bf08c4c3-805a-48f9-a01c-59702fc1c7f9",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "8233eee1-7b98-4f1c-8a6a-07787843189d",
+      "name": "Create Relief Camp (Admin)",
+      "url": "{{baseUrl}}/relief-camps",
+      "method": "POST",
+      "sortNum": 230000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.data._id",
+          "action": "setto",
+          "value": "{{campId}}"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"name\": \"Relief Camp 6\",\n  \"location\": {\n    \"coordinates\": [\n      72.95,\n      19.12\n    ],\n    \"address\": \"Zone F, Mumbai\"\n  },\n  \"capacity\": 200\n}",
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "1ce82f30-d1e3-4302-8d93-1ba3bccd2b40",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "8233eee1-7b98-4f1c-8a6a-07787843189d",
+      "name": "Update Relief Camp (Admin)",
+      "url": "{{baseUrl}}/relief-camps/{{campId}}",
+      "method": "PUT",
+      "sortNum": 240000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"currentOccupancy\": 120\n}",
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "5f9ef400-1bfd-4ef9-bc9a-2b329de4c027",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "d6b375fb-f842-4ee3-97fd-b0f7f094bc73",
+      "name": "List Alerts",
+      "url": "{{baseUrl}}/alerts",
+      "method": "GET",
+      "sortNum": 250000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "035bbbe4-150f-495f-b3ba-096973020188",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "d6b375fb-f842-4ee3-97fd-b0f7f094bc73",
+      "name": "List Emergency Alerts",
+      "url": "{{baseUrl}}/alerts/emergency",
+      "method": "GET",
+      "sortNum": 260000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "256b0326-c020-4712-a714-324b0338a4cf",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "d6b375fb-f842-4ee3-97fd-b0f7f094bc73",
+      "name": "Create Emergency Alert (Admin)",
+      "url": "{{baseUrl}}/alerts",
+      "method": "POST",
+      "sortNum": 270000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"Cyclone Warning\",\n  \"message\": \"Cyclone approaching, prepare shelters\",\n  \"severity\": \"emergency\"\n}",
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "cc1e03e1-61ec-4657-863c-9b91650a04c9",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "dbb2050e-4763-42a8-8f61-acd3c9fe0cc8",
+      "name": "Affected Areas",
+      "url": "{{baseUrl}}/map/affected-areas",
+      "method": "GET",
+      "sortNum": 280000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "db31699c-06d8-42ba-badb-71062479d652",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "dbb2050e-4763-42a8-8f61-acd3c9fe0cc8",
+      "name": "Relief Camps Map",
+      "url": "{{baseUrl}}/map/relief-camps",
+      "method": "GET",
+      "sortNum": 290000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "f8884a17-5b57-4487-9fdb-5be67e3aab32",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "5501fdd4-0841-4a94-95b6-f3a902ccadae",
+      "name": "List All Needs (Admin)",
+      "url": "{{baseUrl}}/admin/needs",
+      "method": "GET",
+      "sortNum": 300000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "f3771ddf-0b61-44e7-954c-641f5d5cecaf",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "5501fdd4-0841-4a94-95b6-f3a902ccadae",
+      "name": "Verify Need (Admin)",
+      "url": "{{baseUrl}}/admin/verify/{{needId}}",
+      "method": "PUT",
+      "sortNum": 310000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    },
+    {
+      "_id": "9c6c8cc2-d04c-40d4-b1f8-556fdc58a53c",
+      "colId": "b1389b2f-dae2-4b85-a6b8-7bab29e027b8",
+      "containerId": "18d1c50b-5da6-495e-969c-1a9c847df683",
+      "name": "Send Push Notification (Admin)",
+      "url": "{{baseUrl}}/notifications/send",
+      "method": "POST",
+      "sortNum": 320000,
+      "created": "2026-10-06T17:26:18.000Z",
+      "modified": "2026-10-06T17:26:18.000Z",
+      "headers": [],
+      "params": [],
+      "tests": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"Cyclone Warning\",\n  \"body\": \"Cyclone approaching, prepare shelters\"\n}",
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{token}}"
+      }
+    }
+  ]
+}

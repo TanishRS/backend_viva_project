@@ -82,7 +82,16 @@ Server starts on `http://localhost:5000` by default.
 - Swagger UI: `GET /api-docs`
 
 ### 6. Explore the API
-Import `docs/ReliefConnect.postman_collection.json` into Postman. The collection
+
+**Thunder Client (VS Code):** Collections → ⋯ → Import → `docs/ReliefConnect.thunder_collection.json`;
+Env → ⋯ → Import → `docs/ReliefConnect.thunder_environment.json`, then select the
+"ReliefConnect" environment. Run a **Login** request first — it saves `{{token}}`
+automatically. If your port isn't 5000, edit `baseUrl` in the environment.
+
+**Port 5000 busy on macOS?** AirPlay Receiver uses it. Set `PORT=5001` in `.env`
+(or turn AirPlay Receiver off in System Settings → General → AirDrop & Handoff).
+
+**Postman:** import `docs/ReliefConnect.postman_collection.json`. The collection
 auto-captures your JWT into a `{{token}}` variable after login, and chains
 `needId`/`campId`/`userId` across requests.
 
