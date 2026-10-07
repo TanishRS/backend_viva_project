@@ -29,6 +29,9 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
 
+// --- Live feed demo page: /live (shows Socket.io events as they happen) ---
+app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
+
 // --- Health check ---
 app.get('/', (req, res) => {
   res.json({

@@ -155,8 +155,14 @@ Clients connect to the same host/port as the REST API and can join rooms:
 const socket = io('http://localhost:5000');
 socket.emit('join', 'map');     // live affected-areas / relief-camp updates
 socket.emit('join', 'alerts');  // emergency alert broadcasts
-socket.emit('join', 'admin');   // new needs/donations/volunteers for dashboards
+// admin room needs a token: io({ auth: { token: adminJwt } }); socket.emit("join", "admin");
 ```
+
+**Live demo page:** open `http://localhost:<port>/live` — it connects to the Socket.io
+server and prints every event as it happens, so you can call an endpoint in Swagger
+and watch the update appear. The `admin` room (donations, new volunteers) is locked:
+connect with `io({ auth: { token: <admin JWT> } })`, or paste an admin token into the
+box on the page.
 
 Events emitted: `need:new`, `need:updated`, `need:verified`, `need:deleted`,
 `donation:new`, `camp:new`, `camp:updated`, `map:update`, `alert:new`,

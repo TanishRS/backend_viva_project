@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ReliefConnect - Live Feed</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --text:#1c2430; --muted:#667085; --line:#e3e6ea;
+          --ok:#1a7f4b; --off:#b42318; --need:#2563eb; --donation:#7c3aed; --alert:#dc2626;
+          --camp:#0f766e; --volunteer:#b45309; --map:#475467; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#12161c; --card:#1b212b; --text:#e8ecf1; --muted:#98a2b3; --line:#2b3340; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font:15px/1.45 system-ui, sans-serif; background:var(--bg); color:var(--text); }
+  main { max-width: 860px; margin: 0 auto; padding: 20px 16px 48px; }
+  header { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  h1 { font-size: 20px; margin: 0; }
+  .pill { padding: 2px 10px; border-radius: 999px; font-size: 13px; color:#fff; background: var(--off); }
+  .pill.on { background: var(--ok); }
+  .bar { display:flex; gap:8px; flex-wrap:wrap; align-items:flex-end; margin: 16px 0 6px; }
+  .bar label { flex:1 1 320px; font-size:13px; color:var(--muted); }
+  .bar input { display:block; width:100%; margin-top:4px; padding:8px 10px; border:1px solid var(--line);
+               border-radius:8px; background:var(--card); color:var(--text); font:inherit; }
+  button { padding:8px 14px; border:1px solid var(--line); border-radius:8px; background:var(--card);
+           color:var(--text); font:inherit; cursor:pointer; }
+  #rooms { color:var(--muted); font-size:13px; margin: 4px 0 14px; }
+  #feed { list-style:none; margin:0; padding:0; display:grid; gap:8px; }
+  #empty { color:var(--muted); padding: 24px 0; text-align:center; }
+  .ev { background:var(--card); border:1px solid var(--line); border-left:4px solid var(--map);
+        border-radius:8px; padding:10px 12px; }
+  .ev.need { border-left-color: var(--need); }
+  .ev.donation { border-left-color: var(--donation); }
+  .ev.alert { border-left-color: var(--alert); }
+  .ev.camp { border-left-color: var(--camp); }
+  .ev.volunteer { border-left-color: var(--volunteer); }
+  .head { display:flex; gap:10px; flex-wrap:wrap; align-items:baseline; }
+  .time { color:var(--muted); font-size:12px; font-variant-numeric: tabular-nums; }
+  .sum { color:var(--text); }
+  details { margin-top:6px; }
+  summary { cursor:pointer; color:var(--muted); font-size:12px; }
+  pre { margin:6px 0 0; padding:8px; background:var(--bg); border-radius:6px; overflow:auto; font-size:12px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>ReliefConnect &mdash; live feed</h1>
+    <span id="status" class="pill">connecting&hellip;</span>
+  </header>
+
+  <div class="bar">
+    <label>Admin token (optional &mdash; unlocks donation and volunteer events)
+      <input id="token" type="password" autocomplete="off"
+             placeholder="paste the token from POST /api/auth/login as admin">
+    </label>
+    <button id="connect" type="button">Reconnect</button>
+    <button id="clear" type="button">Clear</button>
+  </div>
+  <div id="rooms"></div>
+
+  <div id="empty">Waiting for events&hellip; call an endpoint in Swagger and watch it appear here.</div>
+  <ul id="feed"></ul>
+</main>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/live.js"></script>
+</body>
+</html>
