@@ -1,4 +1,4 @@
-const { admin, useMock } = require('../config/firebase');
+const { getMessaging, getAuth, useMock } = require('../config/firebase');
 
 /**
  * sendPushNotification
@@ -33,7 +33,7 @@ async function sendPushNotification(tokens, payload) {
     tokens: cleanTokens,
   };
 
-  const response = await admin.messaging().sendEachForMulticast(message);
+  const response = await getMessaging().sendEachForMulticast(message);
   return response;
 }
 
@@ -53,7 +53,7 @@ async function verifyFirebaseIdToken(idToken) {
     console.log('[FirebaseMock] Verifying ID token (mocked) — accepting as valid');
     return { uid: `mock-uid-${idToken.slice(0, 8)}`, mocked: true };
   }
-  return admin.auth().verifyIdToken(idToken);
+  return getAuth().verifyIdToken(idToken);
 }
 
 module.exports = { sendPushNotification, verifyFirebaseIdToken };
